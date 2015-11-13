@@ -1,0 +1,4 @@
+#!/bin/sh
+/sbin/zpool list -Ho name | for zpool in `xargs`; do
+  /sbin/zfs get -rHp -o value usedbysnapshots $zpool | awk -F: '{sum+=$1} END{print sum}'
+done

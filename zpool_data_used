@@ -1,0 +1,6 @@
+#!/bin/bash
+/sbin/zpool list -Ho name | while read zpool; do 
+  snap=$(/sbin/zfs get -rHp -o value usedbysnapshots "${zpool}" | /usr/bin/awk -F: '{sum+=$1} END{print sum}')
+  pool=$(/sbin/zfs get -Hp -o value used "${zpool}")
+  echo "$((pool-snap))"
+done

@@ -1,0 +1,2 @@
+#!/bin/sh
+/sbin/zpool list -H -o name
