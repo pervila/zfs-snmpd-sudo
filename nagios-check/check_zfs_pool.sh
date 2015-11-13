@@ -53,6 +53,7 @@ done
 
 t=$(mktemp)
 snmpwalk -v 2c -c "${community}" -m "${magic_mib}"  "${hostname}" "${magic_oid}" > "$t"
+
 if [ ! $? -eq 0 ]; then
   echo "ERROR: could not fetch snmp data from ${hostname}"
   rm $t
