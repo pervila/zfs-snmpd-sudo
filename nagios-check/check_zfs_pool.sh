@@ -83,3 +83,4 @@ fi
 
 echo "zpool $zpool_name ${status}; usage ${zpool_capacity}%; dedup ratio $zpool_dedupratio; ($zpool_available/$zpool_used)"
 rm $t
+exit $err_code
