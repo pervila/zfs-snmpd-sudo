@@ -1,0 +1,2 @@
+#!/bin/sh
+/bin/grep misses /proc/spl/kstat/zfs/arcstats | /usr/bin/awk -F' ' '{print $(NF)}'
