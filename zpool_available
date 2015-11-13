@@ -1,2 +1,2 @@
 #!/bin/sh
-/sbin/zpool list -Ho name | xargs /sbin/zfs get -Hp -o value available
+/sbin/zpool list -Ho name | /usr/bin/xargs /sbin/zfs get -Hp -o value available
