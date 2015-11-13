@@ -13,13 +13,22 @@ $0 -H hostname -C community
 Uses snmpwalk to fetch ${magic_oid} from hostname using community"
 }
 
-while getopts "H:C:hd" Option; do
+while getopts "H:C:hvw:c:" Option; do
   case $Option in
     H)
       hostname="${OPTARG}"
     ;;
     C)
       community="${OPTARG}"
+    ;;
+    w)
+      warning="${OPTARG}"
+    ;;
+    c)
+      critical="${OPTARG}"
+    ;;
+    v)
+      verbose=1
     ;;
     *) 
       echo "ERROR: unimplemented parameter ${Option}"
@@ -29,11 +38,14 @@ while getopts "H:C:hd" Option; do
   esac
 done
 
-if [ -z "${hostname}" ] || [ -z "${community}" ]; then
-  echo "ERROR: not enough parameters given."
-  usage
-  exit $e_unknown
-fi
+for value in $hostname $community $warning $critical; do
+ if [ -z "${value}" ]; then
+ 
+   echo "ERROR: not enough parameters given."
+   usage
+   exit $e_unknown
+ fi
+done
 
 t=$(mktemp)
 snmpwalk -v 2c -c "${community}" -m "${magic_mib}"  "${hostname}" "${magic_oid}" > "$t"
@@ -42,16 +54,14 @@ if [ ! $? -eq 0 ]; then
   rm $t
   exit $e_unknown
 fi
-cat $t
 
+if [ "$verbose" = 1 ]; then cat $t ; fi
+
+zpool_name="$(grep zpool_name tests/sample_output.txt | sed -e 's/.*STRING: \(.\+\)\+/\1/')"
 zpool_capacity="$(grep zpool_capacity tests/sample_output.txt | sed -e 's/.*STRING: \([0-9]\+\)\+%/\1%/')"
-echo "cap is $zpool_capacity"
 zpool_dedupratio="$(grep zpool_dedupratio tests/sample_output.txt | sed -e 's/.*STRING: \([0-9.]\+\)\+x/\1x/')"
-echo "dedupratio is $zpool_dedupratio"
-# these two are almost the same, but I'm avoiding metaprogramming with Bash
 zpool_available="$(grep zpool_available tests/sample_output.txt | sed -e 's/.*STRING: \([0-9]\+\)\+/\1/')"
-echo "available is $zpool_available"
 zpool_used="$(grep zpool_used tests/sample_output.txt | sed -e 's/.*STRING: \([0-9]\+\)\+/\1/')"
-echo "used is $zpool_used"
 
+echo "$zpool_name status; usage $zpool_capacity; dedup ratio $zpool_dedupratio; ($zpool_used/$zpool_available)"
 rm $t
