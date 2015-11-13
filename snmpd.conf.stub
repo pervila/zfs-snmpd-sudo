@@ -5,5 +5,4 @@ extend zpool_data /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_dat
 extend zpool_available /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_available
 extend zpool_capacity /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_capacity
 extend arc_hits /usr/local/sbin/zfs-snmpd-sudo-scripts/arc_hits
-extend arc_misses /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/arc_misses
-
+extend arc_misses /usr/local/sbin/zfs-snmpd-sudo-scripts/arc_misses
