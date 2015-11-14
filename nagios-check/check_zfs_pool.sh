@@ -65,11 +65,12 @@ if [ "$verbose" = 1 ]; then
   cat $t
 fi
 
-zpool_name="$(grep zpool_name tests/sample_output.txt | sed -e 's/.*STRING: \(.\+\)\+/\1/')"
-zpool_capacity="$(grep zpool_capacity tests/sample_output.txt | sed -e 's/.*STRING: \([0-9]\+\)\+%/\1/')"
-zpool_dedupratio="$(grep zpool_dedupratio tests/sample_output.txt | sed -e 's/.*STRING: \([0-9.]\+\)\+x/\1x/')"
-zpool_available="$(grep zpool_available tests/sample_output.txt | sed -e 's/.*STRING: \([0-9]\+\)\+/\1/')"
-zpool_used="$(grep zpool_used tests/sample_output.txt | sed -e 's/.*STRING: \([0-9]\+\)\+/\1/')"
+zpool_name="$(grep zpool_name $t | sed -e 's/.*STRING: \(.\+\)/\1/')"
+zpool_capacity="$(grep zpool_capacity $t | sed -e 's/.*STRING: \([0-9]\+\)%/\1/')"
+zpool_dedupratio="$(grep zpool_dedupratio $t | sed -e 's/.*STRING: \([0-9.]\+\)x/\1x/')"
+zpool_available="$(grep zpool_available $t | sed -e 's/.*STRING: \([0-9]\+\)/\1/')"
+zpool_used="$(grep zpool_used $t | sed -e 's/.*STRING: \([0-9]\+\)/\1/')"
+zpool_size="$(grep zpool_size $t | sed -e 's/.*STRING: \([0-9]\+\)/\1/')"
 
 err_code=$e_ok
 status=$e_ok_str
@@ -82,6 +83,6 @@ if [ $zpool_capacity -ge "$critical" ]; then
   status=$e_critical_str 
 fi
 
-echo "zpool $zpool_name ${status}; usage ${zpool_capacity}%; dedup ratio $zpool_dedupratio; ($zpool_available/$zpool_used)"
+echo "zpool $zpool_name ${status}; usage ${zpool_capacity}%; dedup ratio $zpool_dedupratio; ($zpool_available/$zpool_size/$zpool_used)"
 rm $t
 exit $err_code
