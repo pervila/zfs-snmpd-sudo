@@ -84,7 +84,8 @@ if [ $zpool_capacity -ge "$critical" ]; then
 fi
 
 let used_blocks=$((zpool_size-zpool_available))
+dedupratio=$(printf "%0.1f" $(echo "scale=3; 1/${zpool_dedupratio%x}*100" | bc))
 
-echo "zpool $zpool_name ${status}; usage ${zpool_capacity}%; dedup ratio $zpool_dedupratio; ($used_blocks/$zpool_used/$zpool_size)"
+echo "zpool $zpool_name ${status}; usage ${zpool_capacity}%; dedup ratio ${dedupratio}%; ($used_blocks/$zpool_used/$zpool_size)"
 rm $t
 exit $err_code
