@@ -2,7 +2,9 @@ extend zpool_name /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_nam
 extend zpool_snap /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_snap
 extend zpool_used /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_used
 extend zpool_data /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_data_used
+extend zpool_size /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_size
 extend zpool_available /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_available
 extend zpool_capacity /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_capacity
+extend zpool_dedupratio /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_dedupratio
 extend arc_hits /usr/local/sbin/zfs-snmpd-sudo-scripts/arc_hits
 extend arc_misses /usr/local/sbin/zfs-snmpd-sudo-scripts/arc_misses
