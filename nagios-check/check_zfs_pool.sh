@@ -72,6 +72,7 @@ zpool_available="$(grep zpool_available $t | sed -e 's/.*STRING: \([0-9]\+\)/\1/
 zpool_used="$(grep zpool_used $t | sed -e 's/.*STRING: \([0-9]\+\)/\1/')"
 zpool_size="$(grep zpool_size $t | sed -e 's/.*STRING: \([0-9]\+\)/\1/')"
 zpool_allocated="$(grep zpool_allocated $t | sed -e 's/.*STRING: \([0-9]\+\)/\1/')"
+zpool_data="$(grep zpool_data $t | sed -e 's/.*STRING: \([0-9]\+\)/\1/')"
 
 err_code=$e_ok
 status=$e_ok_str
@@ -84,7 +85,7 @@ if [ $zpool_capacity -ge "$critical" ]; then
   status=$e_critical_str 
 fi
 
-dedupratio=$(printf "%0.1f" $(echo "scale=3; (1-1/${zpool_dedupratio%x})*100" | bc))
+dedupratio=$(printf "%0.1f" $(echo "scale=3; (${zpool_data}-${zpool_allocated}) / ${zpool_data} * 100" | bc))
 
 echo "zpool $zpool_name ${status}; usage ${zpool_capacity}%; dedup ratio ${dedupratio}%; ($zpool_allocated/$zpool_used/$zpool_size)"
 rm $t
