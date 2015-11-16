@@ -1,0 +1,5 @@
+#!/bin/sh
+srcdir=$(dirname $0)
+. "$srcdir/zpool_common.sh"
+allocated=$(zpool list -H -o allocated)
+printf "%0.f\n" $(parse_size "$allocated")
