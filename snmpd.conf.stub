@@ -9,3 +9,8 @@ extend zpool_dedupratio /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpo
 extend zpool_allocated  /usr/bin/sudo /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_allocated
 extend arc_hits /usr/local/sbin/zfs-snmpd-sudo-scripts/arc_hits
 extend arc_misses /usr/local/sbin/zfs-snmpd-sudo-scripts/arc_misses
+
+override iso.3.6.1.2.1.2.2.1.2.2 octet_str "eth0"
+override iso.3.6.1.2.1.2.2.1.2.3 octet_str "eth1"
+override iso.3.6.1.2.1.2.2.1.2.4 octet_str "eth2"
+override iso.3.6.1.2.1.2.2.1.2.5 octet_str "eth3"
