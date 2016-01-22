@@ -1,0 +1,12 @@
+Cmnd_Alias C_SNMPD_ZFS = \
+  /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_allocated, \
+  /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_available, \
+  /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_capacity, \
+  /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_data_used, \
+  /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_dedupratio, \
+  /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_name, \
+  /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_size, \
+  /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_snap, \
+  /usr/local/sbin/zfs-snmpd-sudo-scripts/zpool_used
+
+snmp ALL=(root) NOPASSWD: C_SNMPD_ZFS
