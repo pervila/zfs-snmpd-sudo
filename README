@@ -1,5 +1,4 @@
-Background
-==========
+# Background
 
 ZFS attributes are not provided by snmpd out-of-the-box. Another script is
 needed to get the free/used bytes etc. One alternative is provided here:
